@@ -1,6 +1,6 @@
 # terraform
 
-#Command: fmt
+# Command: fmt
 The terraform fmt command is used to rewrite Terraform configuration files to a canonical format and style. This command applies a subset of the Terraform language style conventions, along with other minor adjustments for readability.
 
 Other Terraform commands that generate Terraform configuration will produce configuration files that conform to the style imposed by terraform fmt, so using this style in your own files will ensure consistency.
@@ -13,7 +13,7 @@ Formatting decisions are always subjective and so you might disagree with the de
 
 We recommend that you follow the style conventions applied by terraform fmt when writing Terraform modules, but if you find the results particularly objectionable then you may choose not to use this command, and possibly choose to use a third-party formatting tool instead. If you choose to use a third-party tool then you should also run it on files that are generated automatically by Terraform, to get consistency between your hand-written files and the generated files.
 
-#Usage
+# Usage
 Usage: terraform fmt [options] [target...]
 
 By default, fmt scans the current directory for configuration files. If you provide a directory for the target argument, then fmt will scan that directory instead. If you provide a file, then fmt will process just that file. If you provide a single dash (-), then fmt will read from standard input (STDIN).
@@ -28,7 +28,7 @@ The command-line flags are all optional. The following flags are available:
 
 
 
-#Command: validate
+# Command: validate
 The terraform validate command validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, provider APIs, etc.
 
 Validate runs checks that verify whether a configuration is syntactically valid and internally consistent, regardless of any provided variables or existing state. It is thus primarily useful for general verification of reusable modules, including correctness of attribute names and value types.
@@ -38,10 +38,10 @@ It is safe to run this command automatically, for example as a post-save check i
 Validation requires an initialized working directory with any referenced plugins and modules installed. To initialize a working directory for validation without accessing any configured backend, use:
 
 '''$ terraform init -backend=false'''
-#Copy
+# Copy
 To verify configuration in the context of a particular run (a particular target workspace, input variable values, etc), use the terraform plan command instead, which includes an implied validation check.
 
-#Usage
+# Usage
 Usage: terraform validate [options]
 
 This command accepts the following options:
@@ -50,7 +50,7 @@ This command accepts the following options:
 
 -no-color - If specified, output won't contain any color.
 
-#JSON Output Format
+# JSON Output Format
 When you use the -json option, Terraform will produce validation results in JSON format to allow using the validation result for tool integrations, such as highlighting errors in a text editor.
 
 As with all JSON output options, it's possible that Terraform will encounter an error prior to beginning the validation task that will thus not be subject to the JSON output setting. For that reason, external software consuming Terraform's output should be prepared to find data on stdout that isn't valid JSON, which it should then treat as a generic error case.
@@ -113,7 +113,7 @@ highlight_end_offset (number): A zero-based character offset into the code strin
 
 values (array of objects): Contains zero or more expression values which may be useful in understanding the source of a diagnostic in a complex expression. These expression value objects are described below.
 
-#Source Position
+# Source Position
 A source position object, as used in the range property of a diagnostic object, has the following properties:
 
 byte (number): A zero-based byte offset into the indicated file.
@@ -124,7 +124,7 @@ column (number): A one-based count of Unicode characters from the start of the l
 
 A start position is inclusive while an end position is exclusive. The exact positions used for particular error messages are intended for human interpretation only.
 
-#Expression Value
+# Expression Value
 An expression value object gives additional information about a value which is part of the expression which triggered the diagnostic. This is especially useful when using for_each or similar constructs, in order to identify exactly which values are responsible for an error. The object has two properties:
 
 traversal (string): An HCL-like traversal string, such as var.instance_count. Complex index key values may be elided, so this will not always be valid, parseable HCL. The contents of this string are intended to be human-readable.
@@ -134,19 +134,19 @@ statement (string): A short English-language fragment describing the value of th
 
 
 
-#Command: taint
+# Command: taint
 The terraform taint command informs Terraform that a particular object has become degraded or damaged. Terraform represents this by marking the object as "tainted" in the Terraform state, and Terraform will propose to replace it in the next plan you create.
 
-#Warning: This command is deprecated. For Terraform v0.15.2 and later, we recommend using the -replace option with terraform apply instead (details below).
+# Warning: This command is deprecated. For Terraform v0.15.2 and later, we recommend using the -replace option with terraform apply instead (details below).
 
-#Recommended Alternative
+# Recommended Alternative
 For Terraform v0.15.2 and later, we recommend using the -replace option with terraform apply to force Terraform to replace an object even though there are no configuration changes that would require it.
 
 $ terraform apply -replace="aws_instance.example[0]"
 
 We recommend the -replace option because the change will be reflected in the Terraform plan, letting you understand how it will affect your infrastructure before you take any externally-visible action. When you use terraform taint, other users could create a new plan against your tainted object before you can review the effects.
 
-#Usage
+# Usage
 $ terraform taint [options] <address>
 Copy
 The address argument is the address of the resource to mark as tainted. The address is in the resource address syntax, as shown in the output from other commands, such as:
@@ -169,10 +169,10 @@ For configurations using the local backend only, terraform taint also accepts th
 
 
 
-#Command: graph
+# Command: graph
 The terraform graph command is used to generate a visual representation of either a configuration or execution plan. The output is in the DOT format, which can be used by GraphViz to generate charts.
 
-#Usage
+# Usage
 Usage: terraform graph [options]
 
 Outputs the visual execution graph of Terraform resources according to either the current configuration or an execution plan.
@@ -191,7 +191,7 @@ Options:
 
 -module-depth=n - (deprecated) In prior versions of Terraform, specified the depth of modules to show in the output.
 
-#Generating Images
+# Generating Images
 The output of terraform graph is in the DOT format, which can easily be converted to an image by making use of dot provided by GraphViz:
 
 $ terraform graph | dot -Tsvg > graph.svg
@@ -200,10 +200,10 @@ $ terraform graph | dot -Tsvg > graph.svg
 
 
 
-#Command: output
+# Command: output
 The terraform output command is used to extract the value of an output variable from the state file.
 
-#Usage
+# Usage
 Usage: terraform output [options] [NAME]
 
 With no additional arguments, output will display all the outputs for the root module. If an output NAME is specified, only the value of that output is printed.
